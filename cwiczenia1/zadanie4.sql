@@ -3,7 +3,7 @@ WITH average_per_month AS (
         MONTH(order_date) AS month,
         AVG(total_price) as amount
     FROM pizza_sales
-(    GROUP BY MONTH(order_date)
+    GROUP BY MONTH(order_date)
 )
 SELECT
     order_id,
