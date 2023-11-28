@@ -1,2 +1,3 @@
 # Hurtownie Danych
-Repozytorium zawierające rozwiązane zadania z przedmiotu Hurtownie Danych na WGGIOŚ AGH.
+## About
+This repository contains files for Data Warehouses course from winter semester of Data Engineering and Analysis on AGH UST led by Jakub Roszkowski.
