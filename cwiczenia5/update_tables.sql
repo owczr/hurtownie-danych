@@ -12,7 +12,7 @@ SET
 	c.[phone] = cu.[phone],
 	c.[email] = cu.[email]
 FROM [dbo].[customers] c
-INNER JOIN [dbo].[customers_update] cu on c.id = cu.id
+INNER JOIN [dbo].[customers_update] cu ON c.id = cu.id
 
 UPDATE c
    SET 
@@ -21,7 +21,7 @@ UPDATE c
       ,c.[tax_id] = cu.[tax_id]
       ,c.[contact_person] = cu.[contact_person]
 FROM [dbo].[carrier] c
-INNER JOIN [dbo].[carrier_update] cu on c.carrier_id = cu.carrier_id
+INNER JOIN [dbo].[carrier_update] cu ON c.carrier_id = cu.carrier_id
 
 UPDATE o
    SET 
