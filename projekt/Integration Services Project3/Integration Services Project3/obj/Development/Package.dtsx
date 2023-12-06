@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="107"
-  DTS:VersionGUID="{C5DC0205-324E-486B-8174-BE60014DBE77}">
+  DTS:VersionBuild="110"
+  DTS:VersionGUID="{3582ABCD-08A4-43F1-AEAE-1118413044D9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -3686,11 +3686,11 @@
               </outputs>
             </component>
             <component
-              refId="Package\FactSales\DIMCustomers"
+              refId="Package\FactSales\DIMCarriers"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
               description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="DIMCustomers"
+              name="DIMCarriers"
               usesDispositions="true"
               version="6">
               <properties>
@@ -3699,16 +3699,16 @@
                   description="Specifies the SQL statement that generates the lookup table."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT * FROM [dbo].[DIMCustomers]
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT * FROM  [dbo].[DIMCarrier]
 WHERE [end_date] IS NULL</property>
                 <property
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
                   expressionType="Notify"
                   name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT * FROM [dbo].[DIMCustomers]
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT * FROM  [dbo].[DIMCarrier]
 WHERE [end_date] IS NULL) [refTable]
-where [refTable].[id] = ?</property>
+where [refTable].[CarrierKey] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -3739,12 +3739,172 @@ where [refTable].[id] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomersKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="first_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="last_name" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="street" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="city" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="state" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="country" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="phone" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="email" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="start_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="end_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CarrierKey" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="carrier_id" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="carrier_name" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="address" dataType="DT_STR" length="48" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="tax_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="contact_person" dataType="DT_STR" length="19" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="start_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="end_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customer_id]};</property>
+                  name="ParameterMap">#{Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrierID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\FactSales\DIMCarriers.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\FactSales\DIMCarriers.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\FactSales\DIMCarriers.Inputs[Lookup Input].Columns[carrierID]"
+                      cachedDataType="i2"
+                      cachedName="carrierID"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrierID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">CarrierKey</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\FactSales\DIMCarriers.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="IgnoreFailure"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\FactSales\DIMCarriers.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactSales\DIMCarriers.Outputs[Lookup Match Output].Columns[CarrierKey]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\FactSales\DIMCarriers.Outputs[Lookup Match Output].Columns[CarrierKey]"
+                      name="CarrierKey"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">CarrierKey</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\FactSales\DIMCarriers.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\FactSales\DIMCarriers.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\FactSales\DIMCarriers.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\FactSales\DIMCarriers.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\FactSales\DIMCarriers.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\FactSales\DIMCarriers.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\FactSales\DIMCarriers.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\FactSales\DIMCarriers.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\FactSales\DIMCustomers"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="DIMCustomers"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT * FROM [DIMCustomers]
+WHERE [end_date] IS NULL</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT * FROM [DIMCustomers]
+WHERE [end_date] IS NULL) [refTable]
+where [refTable].[CustomersKey] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomersKey" dataType="DT_I2" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="first_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="last_name" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="street" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="city" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="state" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="country" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="phone" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="email" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="start_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="end_date" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customerID]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -3757,8 +3917,8 @@ where [refTable].[id] = ?</property>
               <connections>
                 <connection
                   refId="Package\FactSales\DIMCustomers.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -3768,15 +3928,15 @@ where [refTable].[id] = ?</property>
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\FactSales\DIMCustomers.Inputs[Lookup Input].Columns[customer_id]"
-                      cachedDataType="i4"
-                      cachedName="customer_id"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customer_id]">
+                      refId="Package\FactSales\DIMCustomers.Inputs[Lookup Input].Columns[customerID]"
+                      cachedDataType="i2"
+                      cachedName="customerID"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customerID]">
                       <properties>
                         <property
                           dataType="System.String"
                           description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">id</property>
+                          name="JoinToReferenceColumn">CustomersKey</property>
                         <property
                           dataType="System.Null"
                           description="Specifies the column in the reference table from which a column is copied."
@@ -3798,7 +3958,7 @@ where [refTable].[id] = ?</property>
                   <outputColumns>
                     <outputColumn
                       refId="Package\FactSales\DIMCustomers.Outputs[Lookup Match Output].Columns[CustomersKey]"
-                      dataType="i4"
+                      dataType="i2"
                       errorOrTruncationOperation="Copy Column"
                       lineageId="Package\FactSales\DIMCustomers.Outputs[Lookup Match Output].Columns[CustomersKey]"
                       name="CustomersKey"
@@ -3904,8 +4064,8 @@ where [refTable].[id] = ?</property>
               <connections>
                 <connection
                   refId="Package\FactSales\Load Fact Sales.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3926,32 +4086,39 @@ where [refTable].[id] = ?</property>
                       externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[date]"
                       lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[date]" />
                     <inputColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[time]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="time"
-                      externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[time]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[time]" />
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[transactionID]"
+                      cachedDataType="i2"
+                      cachedName="transactionID"
+                      externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[transactionID]"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[transactionID]" />
                     <inputColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[quantity]"
-                      cachedDataType="i4"
-                      cachedName="quantity"
-                      externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[quantity]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[quantity]" />
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[amount]"
+                      cachedDataType="r4"
+                      cachedName="amount"
+                      externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[amount]"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[amount]" />
                     <inputColumn
                       refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[CustomersKey]"
-                      cachedDataType="i4"
+                      cachedDataType="i2"
                       cachedName="CustomersKey"
                       externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[CustomersKey]"
                       lineageId="Package\FactSales\DIMCustomers.Outputs[Lookup Match Output].Columns[CustomersKey]" />
+                    <inputColumn
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[CarrierKey]"
+                      cachedDataType="i2"
+                      cachedName="CarrierKey"
+                      externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[CarrierKey]"
+                      lineageId="Package\FactSales\DIMCarriers.Outputs[Lookup Match Output].Columns[CarrierKey]" />
+                    <inputColumn
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].Columns[DateKey]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DateKey"
+                      externalMetadataColumnId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                      lineageId="Package\FactSales\Derived Column.Outputs[Derived Column Output].Columns[DateKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[OrderKey]"
-                      dataType="i4"
-                      name="OrderKey" />
                     <externalMetadataColumn
                       refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[date]"
                       codePage="1252"
@@ -3959,34 +4126,26 @@ where [refTable].[id] = ?</property>
                       length="50"
                       name="date" />
                     <externalMetadataColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="time" />
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[transactionID]"
+                      dataType="i2"
+                      name="transactionID" />
                     <externalMetadataColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[quantity]"
-                      dataType="i4"
-                      name="quantity" />
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[amount]"
+                      dataType="r4"
+                      name="amount" />
                     <externalMetadataColumn
                       refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[CustomersKey]"
-                      dataType="i4"
+                      dataType="i2"
                       name="CustomersKey" />
+                    <externalMetadataColumn
+                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[CarrierKey]"
+                      dataType="i2"
+                      name="CarrierKey" />
                     <externalMetadataColumn
                       refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
                       dataType="wstr"
                       length="8"
                       name="DateKey" />
-                    <externalMetadataColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[pizza_id]"
-                      codePage="1252"
-                      dataType="str"
-                      length="14"
-                      name="pizza_id" />
-                    <externalMetadataColumn
-                      refId="Package\FactSales\Load Fact Sales.Inputs[OLE DB Destination Input].ExternalColumns[CarrierKey]"
-                      dataType="i4"
-                      name="CarrierKey" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -4016,164 +4175,6 @@ where [refTable].[id] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\FactSales\Lookup"
-              componentClassID="Microsoft.Lookup"
-              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
-              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup"
-              usesDispositions="true"
-              version="6">
-              <properties>
-                <property
-                  dataType="System.String"
-                  description="Specifies the SQL statement that generates the lookup table."
-                  expressionType="Notify"
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DIMCarrier]</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
-                  expressionType="Notify"
-                  name="SqlCommandParam"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DIMCarrier]) [refTable]
-where [refTable].[carrier_id] = ?</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the type of connection used to access the reference dataset."
-                  name="ConnectionType"
-                  typeConverter="LookupConnectionType">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the cache type of the lookup table."
-                  name="CacheType"
-                  typeConverter="CacheType">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
-                  name="NoMatchBehavior"
-                  typeConverter="LookupNoMatchBehavior">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
-                  name="NoMatchCachePercentage">0</property>
-                <property
-                  dataType="System.Int32"
-                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
-                  name="MaxMemoryUsage">25</property>
-                <property
-                  dataType="System.Int64"
-                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
-                  name="MaxMemoryUsage64">25</property>
-                <property
-                  dataType="System.String"
-                  description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CarrierKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="carrier_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="carrier_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="address" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="tax_id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="contact_person" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
-                <property
-                  containsID="true"
-                  dataType="System.String"
-                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrier_id]};</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
-                  name="TreatDuplicateKeysAsError">false</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\FactSales\Lookup.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5]"
-                  description="Connection manager used to access lookup data."
-                  name="OleDbConnection" />
-              </connections>
-              <inputs>
-                <input
-                  refId="Package\FactSales\Lookup.Inputs[Lookup Input]"
-                  name="Lookup Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\FactSales\Lookup.Inputs[Lookup Input].Columns[carrier_id]"
-                      cachedDataType="i4"
-                      cachedName="carrier_id"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrier_id]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">carrier_id</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\FactSales\Lookup.Outputs[Lookup Match Output]"
-                  errorOrTruncationOperation="Lookup"
-                  errorRowDisposition="FailComponent"
-                  exclusionGroup="1"
-                  name="Lookup Match Output"
-                  synchronousInputId="Package\FactSales\Lookup.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\FactSales\Lookup.Outputs[Lookup Match Output].Columns[CarrierKey]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\FactSales\Lookup.Outputs[Lookup Match Output].Columns[CarrierKey]"
-                      name="CarrierKey"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn">CarrierKey</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\FactSales\Lookup.Outputs[Lookup No Match Output]"
-                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
-                  exclusionGroup="1"
-                  name="Lookup No Match Output"
-                  synchronousInputId="Package\FactSales\Lookup.Inputs[Lookup Input]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\FactSales\Lookup.Outputs[Lookup Error Output]"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Lookup Error Output"
-                  synchronousInputId="Package\FactSales\Lookup.Inputs[Lookup Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\FactSales\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\FactSales\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
               refId="Package\FactSales\orders"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
@@ -4189,7 +4190,7 @@ where [refTable].[carrier_id] = ?</property>
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">[dbo].[orders]</property>
+                  name="OpenRowset">[dbo].[sales]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -4224,8 +4225,8 @@ where [refTable].[carrier_id] = ?</property>
               <connections>
                 <connection
                   refId="Package\FactSales\orders.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5_staging]"
-                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.cwiczenia5_staging]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt_staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-LUGSKL7.projekt_staging]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -4234,15 +4235,6 @@ where [refTable].[carrier_id] = ?</property>
                   refId="Package\FactSales\orders.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[order_id]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[order_id]"
-                      name="order_id"
-                      truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[date]"
                       codePage="1252"
@@ -4255,104 +4247,64 @@ where [refTable].[carrier_id] = ?</property>
                       name="date"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customer_id]"
-                      dataType="i4"
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[transactionID]"
+                      dataType="i2"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customer_id]"
-                      name="customer_id"
+                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[transactionID]"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[transactionID]"
+                      name="transactionID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[time]"
-                      codePage="1252"
-                      dataType="str"
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrierID]"
+                      dataType="i2"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[time]"
-                      length="50"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[time]"
-                      name="time"
+                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[carrierID]"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrierID]"
+                      name="carrierID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrier_id]"
-                      dataType="i4"
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customerID]"
+                      dataType="i2"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[carrier_id]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[carrier_id]"
-                      name="carrier_id"
+                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[customerID]"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[customerID]"
+                      name="customerID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[order_details_id]"
-                      dataType="i4"
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[amount]"
+                      dataType="r4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[order_details_id]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[order_details_id]"
-                      name="order_details_id"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[pizza_id]"
-                      codePage="1252"
-                      dataType="str"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[pizza_id]"
-                      length="14"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[pizza_id]"
-                      name="pizza_id"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[quantity]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[quantity]"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[quantity]"
-                      name="quantity"
+                      externalMetadataColumnId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[amount]"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Output].Columns[amount]"
+                      name="amount"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
-                      dataType="i4"
-                      name="order_id" />
-                    <externalMetadataColumn
                       refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[date]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="dbTimeStamp"
                       name="date" />
                     <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[customer_id]"
-                      dataType="i4"
-                      name="customer_id" />
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[transactionID]"
+                      dataType="i2"
+                      name="transactionID" />
                     <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="time" />
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[carrierID]"
+                      dataType="i2"
+                      name="carrierID" />
                     <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[carrier_id]"
-                      dataType="i4"
-                      name="carrier_id" />
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[customerID]"
+                      dataType="i2"
+                      name="customerID" />
                     <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[order_details_id]"
-                      dataType="i4"
-                      name="order_details_id" />
-                    <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[pizza_id]"
-                      codePage="1252"
-                      dataType="str"
-                      length="14"
-                      name="pizza_id" />
-                    <externalMetadataColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[quantity]"
-                      dataType="i4"
-                      name="quantity" />
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Output].ExternalColumns[amount]"
+                      dataType="r4"
+                      name="amount" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -4361,51 +4313,30 @@ where [refTable].[carrier_id] = ?</property>
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
-                      name="order_id" />
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[transactionID]"
+                      dataType="i2"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[transactionID]"
+                      name="transactionID" />
+                    <outputColumn
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[carrierID]"
+                      dataType="i2"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[carrierID]"
+                      name="carrierID" />
+                    <outputColumn
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[customerID]"
+                      dataType="i2"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[customerID]"
+                      name="customerID" />
+                    <outputColumn
+                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[amount]"
+                      dataType="r4"
+                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[amount]"
+                      name="amount" />
                     <outputColumn
                       refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[date]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="dbTimeStamp"
                       lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[date]"
                       name="date" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[customer_id]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[customer_id]"
-                      name="customer_id" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[time]"
-                      name="time" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[carrier_id]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[carrier_id]"
-                      name="carrier_id" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[order_details_id]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[order_details_id]"
-                      name="order_details_id" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[pizza_id]"
-                      codePage="1252"
-                      dataType="str"
-                      length="14"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[pizza_id]"
-                      name="pizza_id" />
-                    <outputColumn
-                      refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[quantity]"
-                      dataType="i4"
-                      lineageId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[quantity]"
-                      name="quantity" />
                     <outputColumn
                       refId="Package\FactSales\orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -4432,14 +4363,14 @@ where [refTable].[carrier_id] = ?</property>
               startId="Package\FactSales\Derived Column.Outputs[Derived Column Output]" />
             <path
               refId="Package\FactSales.Paths[Lookup Match Output]"
-              endId="Package\FactSales\Lookup.Inputs[Lookup Input]"
-              name="Lookup Match Output"
-              startId="Package\FactSales\DIMCustomers.Outputs[Lookup Match Output]" />
-            <path
-              refId="Package\FactSales.Paths[Lookup Match Output1]"
               endId="Package\FactSales\Derived Column.Inputs[Derived Column Input]"
               name="Lookup Match Output"
-              startId="Package\FactSales\Lookup.Outputs[Lookup Match Output]" />
+              startId="Package\FactSales\DIMCarriers.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\FactSales.Paths[Lookup Match Output1]"
+              endId="Package\FactSales\DIMCarriers.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\FactSales\DIMCustomers.Outputs[Lookup Match Output]" />
             <path
               refId="Package\FactSales.Paths[OLE DB Source Output]"
               endId="Package\FactSales\DIMCustomers.Inputs[Lookup Input]"
@@ -8371,6 +8302,91 @@ where [refTable].[carrier_name] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\Dimensions\Insert Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimensions\Customers Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dimensions\Slowly Changing Dimension 1">
+    <Properties>
+      <Property>
+        <Name>SCDMetadata</Name>
+        <Value
+          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SCDWizardMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionID&gt;{D2B4BA47-0318-4355-AACC-687FE79B5E05}&lt;/ConnectionID&gt;
+  &lt;TableName&gt;[dbo].[DIMCarrier]&lt;/TableName&gt;
+  &lt;InputToColumnsCollection&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[address]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;address&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[carrier_name]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;carrier_name&lt;/ColumnName&gt;
+      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
+      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[contact_person]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;contact_person&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[tax_id]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;tax_id&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
+  &lt;/InputToColumnsCollection&gt;
+  &lt;GeneratedComponentsIdentificationStrings&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Derived Column 2&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command 2&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Union All 1&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Derived Column 3&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination 1&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command 3&lt;/anyType&gt;
+  &lt;/GeneratedComponentsIdentificationStrings&gt;
+  &lt;FailFixedAttribute&gt;true&lt;/FailFixedAttribute&gt;
+  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
+  &lt;UseStartEndDate&gt;true&lt;/UseStartEndDate&gt;
+  &lt;CurrentIndicatorColumn /&gt;
+  &lt;InferredIndicatorColumn /&gt;
+  &lt;ValueCurrent /&gt;
+  &lt;ValueExpired /&gt;
+  &lt;StartDateColumn&gt;start_date&lt;/StartDateColumn&gt;
+  &lt;EndDateColumn&gt;end_date&lt;/EndDateColumn&gt;
+  &lt;DateVariable&gt;System::StartTime&lt;/DateVariable&gt;
+  &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
+&lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Dimensions\Slowly Changing Dimension">
     <Properties>
       <Property>
@@ -8460,7 +8476,7 @@ where [refTable].[carrier_name] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dimensions\Customers Source">
+    design-time-name="Package\Dimensions\Carrier Source">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -8473,66 +8489,7 @@ where [refTable].[carrier_name] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dimensions\Slowly Changing Dimension 1">
-    <Properties>
-      <Property>
-        <Name>SCDMetadata</Name>
-        <Value
-          type="q2:string">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SCDWizardMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;ConnectionID&gt;{D2B4BA47-0318-4355-AACC-687FE79B5E05}&lt;/ConnectionID&gt;
-  &lt;TableName&gt;[dbo].[DIMCarrier]&lt;/TableName&gt;
-  &lt;InputToColumnsCollection&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[address]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;address&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[carrier_name]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;carrier_name&lt;/ColumnName&gt;
-      &lt;KeyType&gt;BusinessKey&lt;/KeyType&gt;
-      &lt;ChangeType&gt;None&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[contact_person]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;contact_person&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-    &lt;InputColumnToDBColumn&gt;
-      &lt;IdentificationString&gt;Carrier Source.Outputs[OLE DB Source Output].Columns[tax_id]&lt;/IdentificationString&gt;
-      &lt;ColumnName&gt;tax_id&lt;/ColumnName&gt;
-      &lt;KeyType&gt;None&lt;/KeyType&gt;
-      &lt;ChangeType&gt;HistoricalAttribute&lt;/ChangeType&gt;
-    &lt;/InputColumnToDBColumn&gt;
-  &lt;/InputToColumnsCollection&gt;
-  &lt;GeneratedComponentsIdentificationStrings&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Derived Column 2&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command 2&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Union All 1&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Derived Column 3&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination 1&lt;/anyType&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command 3&lt;/anyType&gt;
-  &lt;/GeneratedComponentsIdentificationStrings&gt;
-  &lt;FailFixedAttribute&gt;true&lt;/FailFixedAttribute&gt;
-  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
-  &lt;UseStartEndDate&gt;true&lt;/UseStartEndDate&gt;
-  &lt;CurrentIndicatorColumn /&gt;
-  &lt;InferredIndicatorColumn /&gt;
-  &lt;ValueCurrent /&gt;
-  &lt;ValueExpired /&gt;
-  &lt;StartDateColumn&gt;start_date&lt;/StartDateColumn&gt;
-  &lt;EndDateColumn&gt;end_date&lt;/EndDateColumn&gt;
-  &lt;DateVariable&gt;System::StartTime&lt;/DateVariable&gt;
-  &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
-&lt;/SCDWizardMetadata&gt;</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dimensions\Carrier Source">
+    design-time-name="Package\Dimensions\Insert Destination 1">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -8550,167 +8507,139 @@ where [refTable].[carrier_name] = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="115,42"
-          Id="Package\FactSales\Lookup"
-          TopLeft="627,217" />
-        <NodeLayout
-          Size="152,42"
-          Id="Package\FactSales\DIMCustomers"
-          TopLeft="390,135" />
+          Size="138,42"
+          Id="Package\FactSales\DIMCarriers"
+          TopLeft="398,245" />
         <NodeLayout
           Size="110,42"
           Id="Package\FactSales\orders"
           TopLeft="415,43" />
         <NodeLayout
           Size="158,42"
-          Id="Package\FactSales\Load Fact Sales"
-          TopLeft="459,324" />
-        <NodeLayout
-          Size="158,42"
           Id="Package\FactSales\Derived Column"
-          TopLeft="356,235" />
-        <EdgeLayout
-          Id="Package\FactSales.Paths[Lookup Match Output1]"
-          TopLeft="627,238">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-113,18"
-              Start="0,0"
-              End="-105.5,18">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-52.5,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-52.5,0"
-                    Point2="-56.5,0"
-                    Point3="-56.5,4" />
-                  <mssgle:LineSegment
-                    End="-56.5,14" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-56.5,14"
-                    Point2="-56.5,18"
-                    Point3="-60.5,18" />
-                  <mssgle:LineSegment
-                    End="-105.5,18" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-104.69138671875,-17.609375,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="387,344" />
         <EdgeLayout
           Id="Package\FactSales.Paths[Lookup Match Output]"
-          TopLeft="466,177">
+          TopLeft="466.5,287">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="218.5,40"
+              EndConnector="0,57"
               Start="0,0"
-              End="218.5,32.5">
+              End="0,49.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,16"
-                    Point2="0,20"
-                    Point3="4,20" />
-                  <mssgle:LineSegment
-                    End="214.5,20" />
-                  <mssgle:CubicBezierSegment
-                    Point1="214.5,20"
-                    Point2="218.5,20"
-                    Point3="218.5,24" />
-                  <mssgle:LineSegment
-                    End="218.5,32.5" />
+                    End="0,49.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="61.05861328125,25,96.3827734375,11.609375"
+              BoundingBox="-48.19138671875,18.9453125,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\FactSales.Paths[Derived Column Output]"
-          TopLeft="435,277">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="103,47"
-              Start="0,0"
-              End="103,39.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19.5"
-                    Point2="0,23.5"
-                    Point3="4,23.5" />
-                  <mssgle:LineSegment
-                    End="99,23.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="99,23.5"
-                    Point2="103,23.5"
-                    Point3="103,27.5" />
-                  <mssgle:LineSegment
-                    End="103,39.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="152,42"
+          Id="Package\FactSales\DIMCustomers"
+          TopLeft="392,148" />
         <EdgeLayout
           Id="Package\FactSales.Paths[OLE DB Source Output]"
-          TopLeft="468,85">
+          TopLeft="469,85">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,50"
+              EndConnector="0,63"
               Start="0,0"
-              End="0,42.5">
+              End="0,55.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,42.5" />
+                    End="0,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FactSales.Paths[Lookup Match Output1]"
+          TopLeft="467.5,190">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
+              BoundingBox="-48.19138671875,17.9453125,96.3827734375,11.609375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="158,42"
+          Id="Package\FactSales\Load Fact Sales"
+          TopLeft="376,442" />
+        <EdgeLayout
+          Id="Package\FactSales.Paths[Derived Column Output]"
+          TopLeft="466,386">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-11,56"
+              Start="0,0"
+              End="-11,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24"
+                    Point2="0,28"
+                    Point3="-4,28" />
+                  <mssgle:LineSegment
+                    End="-7,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-7,28"
+                    Point2="-11,28"
+                    Point3="-11,32" />
+                  <mssgle:LineSegment
+                    End="-11,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\FactSales\DIMCustomers">
+    design-time-name="Package\FactSales\DIMCarriers">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -8720,46 +8649,10 @@ where [refTable].[carrier_name] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\FactSales\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:string">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DIMCarrier]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:string">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\FactSales\Load Fact Sales">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -9346,20 +9239,30 @@ where [refTable].[carrier_name] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dimensions\Insert Destination">
+    design-time-name="Package\FactSales\DIMCustomers">
     <Properties>
       <Property>
-        <Name>DataSourceViewID</Name>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q2:string">Table</Value>
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dimensions\Insert Destination 1">
+    design-time-name="Package\FactSales\Load Fact Sales">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
