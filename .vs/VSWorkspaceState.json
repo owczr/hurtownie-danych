@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\cwiczenia5",
-    "\\cwiczenia5\\Integration Services Project3",
-    "\\projekt"
+    "\\projekt",
+    "\\projekt\\Integration Services Project3",
+    "\\projekt\\Integration Services Project3\\Integration Services Project3"
   ],
-  "SelectedNode": "\\cwiczenia5\\Integration Services Project3\\Integration Services Project3.sln",
+  "SelectedNode": "\\projekt\\Integration Services Project3\\Integration Services Project3.sln",
   "PreviewInSolutionExplorer": false
 }
