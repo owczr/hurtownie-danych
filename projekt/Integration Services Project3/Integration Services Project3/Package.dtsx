@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="100"
-  DTS:VersionGUID="{24095551-00DE-4DF4-8DD2-371706FFFEDB}">
+  DTS:VersionBuild="102"
+  DTS:VersionGUID="{81C17811-0783-423A-91F3-73DD26D0A9B8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -6766,6 +6766,14 @@ where [refTable].[carrier_name] = ?</property>
                       cachedName="tax_id"
                       externalMetadataColumnId="Package\Staging\OLE DB Destination 7.Inputs[OLE DB Destination Input].ExternalColumns[tax_id]"
                       lineageId="Package\Staging\Carrier Source.Outputs[Flat File Source Output].Columns[tax_id]" />
+                    <inputColumn
+                      refId="Package\Staging\OLE DB Destination 7.Inputs[OLE DB Destination Input].Columns[contact_person]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="19"
+                      cachedName="contact_person"
+                      externalMetadataColumnId="Package\Staging\OLE DB Destination 7.Inputs[OLE DB Destination Input].ExternalColumns[contact_person]"
+                      lineageId="Package\Staging\Carrier Source.Outputs[Flat File Source Output].Columns[contact_person]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -6789,6 +6797,12 @@ where [refTable].[carrier_name] = ?</property>
                       refId="Package\Staging\OLE DB Destination 7.Inputs[OLE DB Destination Input].ExternalColumns[tax_id]"
                       dataType="i4"
                       name="tax_id" />
+                    <externalMetadataColumn
+                      refId="Package\Staging\OLE DB Destination 7.Inputs[OLE DB Destination Input].ExternalColumns[contact_person]"
+                      codePage="1252"
+                      dataType="str"
+                      length="19"
+                      name="contact_person" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -8314,7 +8328,7 @@ where [refTable].[carrier_name] = ?</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,24.8565679112556,96.3827734375,11.609375"
+              BoundingBox="-48.19138671875,24.8565679112555,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -8588,7 +8602,7 @@ where [refTable].[carrier_name] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
