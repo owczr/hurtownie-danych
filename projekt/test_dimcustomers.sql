@@ -1,0 +1,15 @@
+SELECT TOP (1000) [CustomersKey]
+      ,[id]
+      ,[first_name]
+      ,[last_name]
+      ,[street]
+      ,[city]
+      ,[state]
+      ,[country]
+      ,[phone]
+      ,[email]
+      ,[start_date]
+      ,[end_date]
+  FROM [projekt].[dbo].[DIMCustomers]
+  ORDER BY [id] DESC
+
